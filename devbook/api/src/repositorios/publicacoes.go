@@ -37,6 +37,7 @@ func (repositorio Publicacoes) Criar(publicacao modelos.Publicacao) (uint64, err
 	return uint64(ultimoIDInserido), nil
 }
 
+// Buscar por id
 func (repositorio Publicacoes) BuscarPorID(publicacaoID uint64) (modelos.Publicacao, error) {
 	linha, erro := repositorio.db.Query(`
 				select p.*, u.nick from
@@ -67,6 +68,7 @@ func (repositorio Publicacoes) BuscarPorID(publicacaoID uint64) (modelos.Publica
 	return publicacao, nil
 }
 
+// Buscar publicacao
 func (repositorio Publicacoes) Buscar(usuarioID uint64) ([]modelos.Publicacao, error) {
 	linha, erro := repositorio.db.Query(`
 						select distinct p.*, u.nick from publicacoes p
@@ -106,6 +108,7 @@ func (repositorio Publicacoes) Buscar(usuarioID uint64) ([]modelos.Publicacao, e
 	return publicacoes, nil
 }
 
+// Atuaizar publicacao
 func (repositorio Publicacoes) Atualizar(publicacaoID uint64, publicacao modelos.Publicacao) error {
 	statement, erro := repositorio.db.Prepare("update publicacoes set titulo = ?, conteudo = ? where id = ?")
 	if erro != nil {
@@ -121,6 +124,7 @@ func (repositorio Publicacoes) Atualizar(publicacaoID uint64, publicacao modelos
 
 }
 
+// Deletar publicacao
 func (repositorio Publicacoes) Deletar(publicacaoID uint64) error {
 	statement, erro := repositorio.db.Prepare("delete from publicacoes where id = ?")
 	if erro != nil {
@@ -134,6 +138,7 @@ func (repositorio Publicacoes) Deletar(publicacaoID uint64) error {
 	return nil
 }
 
+// Buscar por usuario publicacao
 func (repositorio Publicacoes) BuscarPorUsuario(usuarioID uint64) ([]modelos.Publicacao, error) {
 	linhas, erro := repositorio.db.Query(`
 	  select p.*, u.nick from publicacoes p
@@ -169,6 +174,7 @@ func (repositorio Publicacoes) BuscarPorUsuario(usuarioID uint64) ([]modelos.Pub
 	return publicacoes, nil
 }
 
+// curtia  publicacao
 func (repositorio Publicacoes) Curtir(publicacaoID uint64) error {
 	statement, erro := repositorio.db.Prepare("update publicacoes set curtidas = curtidas + 1 where id = ?")
 	if erro != nil {
@@ -182,6 +188,7 @@ func (repositorio Publicacoes) Curtir(publicacaoID uint64) error {
 	return nil
 }
 
+// Descurtir publicacao
 func (repositorio Publicacoes) Descurtir(publicacaoID uint64) error {
 	statement, erro := repositorio.db.Prepare(`
 			update publicacoes set curtidas = 

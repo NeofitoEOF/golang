@@ -53,6 +53,7 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request) {
 	respostas.JSON(w, http.StatusCreated, usuario)
 }
 
+// Buscar um usuário multiplos usuarios
 func BuscarUsuarios(w http.ResponseWriter, r *http.Request) {
 	nomeOuNick := strings.ToLower(r.URL.Query().Get("usuario"))
 
@@ -73,6 +74,8 @@ func BuscarUsuarios(w http.ResponseWriter, r *http.Request) {
 	respostas.JSON(w, http.StatusOK, usuarios)
 
 }
+
+// Buscar um usuário unico no banco
 func BuscarUmUsuario(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
 
@@ -100,10 +103,8 @@ func BuscarUmUsuario(w http.ResponseWriter, r *http.Request) {
 	respostas.JSON(w, http.StatusOK, usuario)
 
 }
-func AtualizarUmUsuario(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Atualizando um usuário!"))
-}
 
+// Atualzar todo usuarios
 func AtualizarTodosUsuarios(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
 	usuarioID, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
@@ -157,6 +158,8 @@ func AtualizarTodosUsuarios(w http.ResponseWriter, r *http.Request) {
 	respostas.JSON(w, http.StatusNoContent, nil)
 
 }
+
+// Deletar usuario
 func ApagarUsuario(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
 	usuarioID, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
@@ -194,6 +197,7 @@ func ApagarUsuario(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// Seguir usuario especifico
 func SeguirUsuario(w http.ResponseWriter, r *http.Request) {
 	seguidorID, erro := autenticacao.ExtrairUsuarioID(r)
 	if erro != nil {
@@ -231,6 +235,7 @@ func SeguirUsuario(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// Parar de seguir usuario
 func PararSeguirUsuario(w http.ResponseWriter, r *http.Request) {
 	seguidorID, erro := autenticacao.ExtrairUsuarioID(r)
 	if erro != nil {
@@ -265,6 +270,7 @@ func PararSeguirUsuario(w http.ResponseWriter, r *http.Request) {
 	respostas.JSON(w, http.StatusNoContent, nil)
 }
 
+// Buscar seguidores
 func BuscarSeguidores(w http.ResponseWriter, r *http.Request) {
 
 	parametros := mux.Vars(r)
@@ -292,6 +298,7 @@ func BuscarSeguidores(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// Busucar quem está de seguindo
 func BuscarSeguindo(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
 	usuarioID, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
@@ -318,6 +325,7 @@ func BuscarSeguindo(w http.ResponseWriter, r *http.Request) {
 	respostas.JSON(w, http.StatusOK, usuarios)
 }
 
+// Atualizar senha
 func AtualizarSenha(w http.ResponseWriter, r *http.Request) {
 	usuarioIDNoToken, erro := autenticacao.ExtrairUsuarioID(r)
 	if erro != nil {

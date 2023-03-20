@@ -15,6 +15,7 @@ var (
 	SecretKey          []byte
 )
 
+// Func para carregar informações de conexão do banco atraves do .env
 func Carregar() {
 	var erro error
 

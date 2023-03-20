@@ -15,6 +15,7 @@ func Logger(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
+// Autenticacao de token
 func Autenticacao(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if erro := autenticacao.ValidarToken(r); erro != nil {

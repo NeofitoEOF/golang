@@ -12,6 +12,7 @@ import (
 	"net/http"
 )
 
+// Func para realizar login para utilizar api
 func Login(w http.ResponseWriter, r *http.Request) {
 	corpoRequisicao, erro := ioutil.ReadAll(r.Body)
 	if erro != nil {

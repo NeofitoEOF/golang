@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// Func principal
 func main() {
 	config.Carregar()
 	r := router.Gerar()

@@ -22,6 +22,7 @@ func CriarToken(usuarioID uint64) (string, error) {
 	return token.SignedString([]byte(config.SecretKey))
 }
 
+// Criar Validação do token
 func ValidarToken(r *http.Request) error {
 	tokenString := extrairToken(r)
 	token, erro := jwt.Parse(tokenString, retornarChaveDeVerificacao)
@@ -37,6 +38,7 @@ func ValidarToken(r *http.Request) error {
 	return errors.New("Token inválidos!")
 }
 
+// Extrair o token do usuario
 func extrairToken(r *http.Request) string {
 	token := r.Header.Get("Authorization")
 
@@ -47,6 +49,7 @@ func extrairToken(r *http.Request) string {
 	return ""
 }
 
+// Verificar se chave informar e valida pelo jwt
 func retornarChaveDeVerificacao(token *jwt.Token) (interface{}, error) {
 	if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 		return nil, fmt.Errorf("Método de assinatura inesperado! %v", token.Header["alg"])
@@ -55,6 +58,7 @@ func retornarChaveDeVerificacao(token *jwt.Token) (interface{}, error) {
 	return config.SecretKey, nil
 }
 
+// Extrair usuario por id
 func ExtrairUsuarioID(r *http.Request) (uint64, error) {
 	tokenString := extrairToken(r)
 	token, erro := jwt.Parse(tokenString, retornarChaveDeVerificacao)

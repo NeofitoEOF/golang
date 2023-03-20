@@ -7,6 +7,7 @@ import (
 	_ "github.com/go-sql-driver/mysql" // Drive
 )
 
+// Func para conectar no banco qualquer tipo de banco
 func Conectar() (*sql.DB, error) {
 	db, erro := sql.Open("mysql", config.StringConexaoBanco)
 

@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// interface da Publicacoes
 type Publicacao struct {
 	ID        uint64    `json:"id, omitempty"`
 	Titulo    string    `json:"titulo, omitempty"`
@@ -16,6 +17,7 @@ type Publicacao struct {
 	CriadoEm  time.Time `json:"criadoEm, omitempty"`
 }
 
+// Preparar modelo do banco de dados
 func (publicacao *Publicacao) Preparar() error {
 	if erro := publicacao.validar(); erro != nil {
 		return erro
@@ -25,6 +27,7 @@ func (publicacao *Publicacao) Preparar() error {
 	return nil
 }
 
+// Preparar modelo do banco de dados validação
 func (publicacao *Publicacao) validar() error {
 	if publicacao.Titulo == "" {
 		return errors.New("O título é obrigatório e não pode estar em branco")
@@ -38,6 +41,7 @@ func (publicacao *Publicacao) validar() error {
 
 }
 
+// Preparar modelo do banco de dados formatar
 func (publicacao *Publicacao) formatar() {
 	publicacao.Titulo = strings.TrimSpace(publicacao.Titulo)
 	publicacao.Conteudo = strings.TrimSpace(publicacao.Conteudo)
